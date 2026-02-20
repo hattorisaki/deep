@@ -9,14 +9,15 @@
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             margin: 0;
             padding: 15px;
-            background-color: #121212;
+            background-color: #0f0f0f;
             color: #ffffff;
         }
 
+        /* Suchleiste */
         .search-container {
             position: sticky;
             top: 0;
-            background-color: #121212;
+            background-color: #0f0f0f;
             padding: 10px 0 20px 0;
             z-index: 100;
         }
@@ -25,42 +26,72 @@
             width: 100%;
             padding: 15px;
             border-radius: 12px;
-            border: none;
-            background-color: #222;
+            border: 1px solid #333;
+            background-color: #1e1e1e;
             color: white;
             font-size: 16px;
             box-sizing: border-box;
             outline: none;
-            border: 1px solid #333;
         }
 
+        /* Container für die Liste */
         #video-liste {
             display: flex;
             flex-direction: column;
-            gap: 25px;
+            gap: 20px;
         }
 
+        /* Die Video-Kachel */
         .video-kachel {
             display: block;
-            background-color: #222;
+            background-color: #1e1e1e;
             border-radius: 16px;
             overflow: hidden;
             text-decoration: none;
             color: white;
-            box-shadow: 0 8px 15px rgba(0,0,0,0.5);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
         }
 
-        .video-kachel video {
+        .video-container {
             width: 100%;
-            height: 220px;
+            height: 210px;
+            background-color: #000;
+            position: relative;
+        }
+
+        video {
+            width: 100%;
+            height: 100%;
             object-fit: cover;
             display: block;
-            background-color: #000;
         }
 
-        .text-bereich { padding: 16px; }
-        .titel { margin: 0; font-size: 18px; font-weight: 600; }
-        .untertitel { margin: 6px 0 0 0; font-size: 14px; color: #aaaaaa; }
+        .text-bereich {
+            padding: 15px;
+        }
+
+        .titel {
+            margin: 0;
+            font-size: 17px;
+            font-weight: 600;
+            line-height: 1.3;
+        }
+
+        .untertitel {
+            margin: 5px 0 0 0;
+            font-size: 14px;
+            color: #aaaaaa;
+        }
+
+        /* Fehlermeldung Style */
+        .error-box {
+            background: #331111;
+            color: #ffaaaa;
+            padding: 15px;
+            border-radius: 10px;
+            border: 1px solid red;
+            font-size: 14px;
+        }
     </style>
 </head>
 <body>
@@ -70,47 +101,75 @@
     </div>
 
     <div id="video-liste">
-        Lade Videos...
+        <p>Lade Datenbank...</p>
     </div>
 
     <script>
         let alleVideosDaten = [];
+        const listeContainer = document.getElementById('video-liste');
 
+        // Funktion 1: Daten aus der videos.json laden
         async function ladeDatenbank() {
             try {
-                // Hier wird die videos.json von deinem GitHub geladen
+                // Fetch versucht die Datei im gleichen Ordner zu finden
                 const antwort = await fetch('videos.json');
-                if (!antwort.ok) throw new Error("videos.json nicht gefunden");
                 
-                alleVideosDaten = await antwort.json();
-                renderVideos(alleVideosDaten);
+                if (!antwort.ok) {
+                    throw new Error(`videos.json wurde nicht gefunden (Server-Status: ${antwort.status}). Stelle sicher, dass die Datei exakt "videos.json" heißt.`);
+                }
+
+                const daten = await antwort.json();
+                alleVideosDaten = daten;
+                
+                if (alleVideosDaten.length === 0) {
+                    listeContainer.innerHTML = "<p>Die videos.json ist leer. Füge Videos hinzu!</p>";
+                } else {
+                    renderVideos(alleVideosDaten);
+                }
+
             } catch (fehler) {
-                console.error(fehler);
-                document.getElementById('video-liste').innerHTML = "Fehler beim Laden der Videos. Prüfe, ob die videos.json im selben Ordner liegt.";
+                // Zeigt den Fehler direkt auf der Webseite an
+                listeContainer.innerHTML = `
+                    <div class="error-box">
+                        <strong>Ladefehler:</strong><br>
+                        ${fehler.message}
+                    </div>
+                `;
+                console.error("Details:", fehler);
             }
         }
 
+        // Funktion 2: Die Kacheln ins HTML schreiben
         function renderVideos(liste) {
-            const container = document.getElementById('video-liste');
+            listeContainer.innerHTML = ""; // Container leeren
+            
             if (liste.length === 0) {
-                container.innerHTML = "Keine Videos gefunden.";
+                listeContainer.innerHTML = "<p>Keine Treffer gefunden.</p>";
                 return;
             }
 
-            container.innerHTML = liste.map(video => `
-                <a href="${video.link}" target="_blank" class="video-kachel">
-                    <video src="${video.videoUrl}" muted loop playsinline preload="none"></video>
+            liste.forEach(video => {
+                const kachel = document.createElement('a');
+                kachel.className = 'video-kachel';
+                kachel.href = video.link;
+                kachel.target = '_blank';
+                
+                kachel.innerHTML = `
+                    <div class="video-container">
+                        <video src="${video.videoUrl}" muted loop playsinline preload="metadata"></video>
+                    </div>
                     <div class="text-bereich">
                         <h3 class="titel">${video.titel}</h3>
                         <p class="untertitel">${video.creator}</p>
                     </div>
-                </a>
-            `).join('');
+                `;
+                listeContainer.appendChild(kachel);
+            });
 
             starteBeobachter();
         }
 
-        // Suche Logik
+        // Funktion 3: Suche-Eingabe verarbeiten
         document.getElementById('suche').addEventListener('input', (e) => {
             const begriff = e.target.value.toLowerCase();
             const gefiltert = alleVideosDaten.filter(v => 
@@ -120,22 +179,28 @@
             renderVideos(gefiltert);
         });
 
+        // Funktion 4: Der Auto-Play Beobachter
         function starteBeobachter() {
             const beobachter = new IntersectionObserver((eintraege) => {
                 eintraege.forEach(eintrag => {
+                    const vid = eintrag.target;
                     if (eintrag.isIntersecting) {
-                        eintrag.target.play().catch(() => {});
+                        // Video startet, wenn es sichtbar ist
+                        vid.play().catch(e => console.log("Autoplay blockiert:", e));
                     } else {
-                        eintrag.target.pause();
-                        eintrag.target.currentTime = 0;
+                        // Video stoppt, wenn man wegscrollt
+                        vid.pause();
+                        vid.currentTime = 0;
                     }
                 });
-            }, { threshold: 0.5 });
+            }, { threshold: 0.6 }); // 60% des Videos müssen sichtbar sein
 
             document.querySelectorAll('video').forEach(v => beobachter.observe(v));
         }
 
+        // Alles starten
         ladeDatenbank();
     </script>
+
 </body>
 </html>
