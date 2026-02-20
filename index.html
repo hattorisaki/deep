@@ -31,11 +31,17 @@
             font-size: 16px;
             box-sizing: border-box;
             outline: none;
+            border: 1px solid #333;
+        }
+
+        #video-liste {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
         }
 
         .video-kachel {
             display: block;
-            margin-bottom: 30px;
             background-color: #222;
             border-radius: 16px;
             overflow: hidden;
@@ -49,7 +55,7 @@
             height: 220px;
             object-fit: cover;
             display: block;
-            background: #000;
+            background-color: #000;
         }
 
         .text-bereich { padding: 16px; }
@@ -60,41 +66,51 @@
 <body>
 
     <div class="search-container">
-        <input type="text" id="suche" placeholder="Nach Titel oder Creator suchen...">
+        <input type="text" id="suche" placeholder="Suche nach Titel oder Creator...">
     </div>
 
     <div id="video-liste">
-        </div>
+        Lade Videos...
+    </div>
 
     <script>
         let alleVideosDaten = [];
 
-        // Lädt die Daten aus der extra JSON-Datei
         async function ladeDatenbank() {
             try {
+                // Hier wird die videos.json von deinem GitHub geladen
                 const antwort = await fetch('videos.json');
+                if (!antwort.ok) throw new Error("videos.json nicht gefunden");
+                
                 alleVideosDaten = await antwort.json();
                 renderVideos(alleVideosDaten);
             } catch (fehler) {
-                console.error("Fehler beim Laden der JSON:", fehler);
+                console.error(fehler);
+                document.getElementById('video-liste').innerHTML = "Fehler beim Laden der Videos. Prüfe, ob die videos.json im selben Ordner liegt.";
             }
         }
 
         function renderVideos(liste) {
             const container = document.getElementById('video-liste');
+            if (liste.length === 0) {
+                container.innerHTML = "Keine Videos gefunden.";
+                return;
+            }
+
             container.innerHTML = liste.map(video => `
                 <a href="${video.link}" target="_blank" class="video-kachel">
                     <video src="${video.videoUrl}" muted loop playsinline preload="none"></video>
                     <div class="text-bereich">
                         <h3 class="titel">${video.titel}</h3>
-                        <p class="untertitel">${video.creator} (#${video.id})</p>
+                        <p class="untertitel">${video.creator}</p>
                     </div>
                 </a>
             `).join('');
+
             starteBeobachter();
         }
 
-        // Suche
+        // Suche Logik
         document.getElementById('suche').addEventListener('input', (e) => {
             const begriff = e.target.value.toLowerCase();
             const gefiltert = alleVideosDaten.filter(v => 
@@ -104,7 +120,6 @@
             renderVideos(gefiltert);
         });
 
-        // Autoplay beim Scrollen
         function starteBeobachter() {
             const beobachter = new IntersectionObserver((eintraege) => {
                 eintraege.forEach(eintrag => {
