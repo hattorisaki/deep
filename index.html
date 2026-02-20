@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    
+    <title>Meine Mediathek</title>
+
+    <style>
+        /* Das Design (CSS) - Optimiert für Handys */
+        body {
+            /* Nutzt automatisch die Standard-Schriftart von Apple auf dem iPhone */
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            margin: 0;
+            padding: 15px; /* Abstand zum Rand */
+            background-color: #121212; /* Schöner dunkler Hintergrund */
+            color: #ffffff;
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        /* Das Design für einen einzelnen Listen-Eintrag */
+        .video-kachel {
+            display: block; /* Macht die ganze Kachel klickbar */
+            margin-bottom: 30px; /* Abstand zur nächsten Kachel */
+            background-color: #222;
+            border-radius: 16px; /* Abgerundete Ecken wie bei iOS */
+            overflow: hidden; /* Sorgt dafür, dass das Video nicht über die runden Ecken ragt */
+            text-decoration: none; /* Entfernt den blauen Link-Unterstrich */
+            color: white;
+            box-shadow: 0 8px 15px rgba(0,0,0,0.5); /* Leichter Schatten */
+        }
+
+        /* Das Design für den Videoplayer selbst */
+        .video-kachel video {
+            width: 100%; /* Video füllt die Breite aus */
+            height: 220px; /* Feste Höhe für einheitlichen Look */
+            object-fit: cover; /* Schneidet das Video schön zu, ohne es zu verzerren */
+            display: block;
+            background-color: #000;
+        }
+
+        /* Das Design für den Text unter dem Video */
+        .text-bereich {
+            padding: 16px;
+        }
+
+        .titel {
+            margin: 0;
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .untertitel {
+            margin: 6px 0 0 0;
+            font-size: 14px;
+            color: #aaaaaa;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Meine Liste</h2>
+
+	<a href="https://www.eporner.com/video-Jj53qx40Fbe/maaarynip-highlight-ahegao-deepthroat/" target="_blank" class="video-kachel">
+        
+        <video src="1.mp4" muted loop playsinline preload="none"></video>
+        
+        <div class="text-bereich">
+            <h3 class="titel">Maaarynip</h3>
+        </div>
+    	
+	</a>
+
+    	<a href="https://www.eporner.com/video-Jj53qx40Fbe/maaarynip-highlight-ahegao-deepthroat/" target="_blank" class="video-kachel">
+        
+        <video src="1.mp4" muted loop playsinline preload="none"></video>
+        
+        <div class="text-bereich">
+            <h3 class="titel">Maaarynip</h3>
+        </div>
+    	
+	</a>
+
+	<a href="https://www.eporner.com/video-Jj53qx40Fbe/maaarynip-highlight-ahegao-deepthroat/" target="_blank" class="video-kachel">
+        
+        <video src="1.mp4" muted loop playsinline preload="none"></video>
+        
+        <div class="text-bereich">
+            <h3 class="titel">Maaarynip</h3>
+        </div>
+    	
+	</a>
+
+	<a href="https://www.eporner.com/video-Jj53qx40Fbe/maaarynip-highlight-ahegao-deepthroat/" target="_blank" class="video-kachel">
+        
+        <video src="1.mp4" muted loop playsinline preload="none"></video>
+        
+        <div class="text-bereich">
+            <h3 class="titel">Maaarynip</h3>
+        </div>
+    	
+	</a>
+
+	<a href="https://www.eporner.com/video-Jj53qx40Fbe/maaarynip-highlight-ahegao-deepthroat/" target="_blank" class="video-kachel">
+        
+        <video src="1.mp4" muted loop playsinline preload="none"></video>
+        
+        <div class="text-bereich">
+            <h3 class="titel">Maaarynip</h3>
+        </div>
+    	
+	</a>
+
+	<a href="https://www.eporner.com/video-Jj53qx40Fbe/maaarynip-highlight-ahegao-deepthroat/" target="_blank" class="video-kachel">
+        
+        <video src="1.mp4" muted loop playsinline preload="none"></video>
+        
+        <div class="text-bereich">
+            <h3 class="titel">Maaarynip</h3>
+        </div>
+    	
+	</a>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Sucht alle Videos auf der Seite
+            const alleVideos = document.querySelectorAll('video');
+
+            // Erstellt den Beobachter (Intersection Observer)
+            const beobachter = new IntersectionObserver((eintraege) => {
+                eintraege.forEach(eintrag => {
+                    // Wenn 50% des Videos auf dem Bildschirm sichtbar sind...
+                    if (eintrag.isIntersecting) {
+                        eintrag.target.play().catch(fehler => console.log("Spielen blockiert", fehler));
+                    } else {
+                        // Wenn das Video aus dem Bildschirm scrollt...
+                        eintrag.target.pause();
+                    }
+                });
+            }, { 
+                threshold: 0.5 // Startet erst, wenn das Video zur Hälfte sichtbar ist
+            });
+
+            // Sagt dem Beobachter, dass er jedes Video überwachen soll
+            alleVideos.forEach(video => {
+                beobachter.observe(video);
+            });
+        });
+    </script>
+
+</body>
+</html>
