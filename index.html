@@ -3,154 +3,124 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    
     <title>Meine Mediathek</title>
-
     <style>
-        /* Das Design (CSS) - Optimiert für Handys */
         body {
-            /* Nutzt automatisch die Standard-Schriftart von Apple auf dem iPhone */
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             margin: 0;
-            padding: 15px; /* Abstand zum Rand */
-            background-color: #121212; /* Schöner dunkler Hintergrund */
+            padding: 15px;
+            background-color: #121212;
             color: #ffffff;
         }
 
-        h2 {
-            text-align: center;
-            margin-bottom: 25px;
+        .search-container {
+            position: sticky;
+            top: 0;
+            background-color: #121212;
+            padding: 10px 0 20px 0;
+            z-index: 100;
         }
 
-        /* Das Design für einen einzelnen Listen-Eintrag */
-        .video-kachel {
-            display: block; /* Macht die ganze Kachel klickbar */
-            margin-bottom: 30px; /* Abstand zur nächsten Kachel */
+        #suche {
+            width: 100%;
+            padding: 15px;
+            border-radius: 12px;
+            border: none;
             background-color: #222;
-            border-radius: 16px; /* Abgerundete Ecken wie bei iOS */
-            overflow: hidden; /* Sorgt dafür, dass das Video nicht über die runden Ecken ragt */
-            text-decoration: none; /* Entfernt den blauen Link-Unterstrich */
             color: white;
-            box-shadow: 0 8px 15px rgba(0,0,0,0.5); /* Leichter Schatten */
+            font-size: 16px;
+            box-sizing: border-box;
+            outline: none;
         }
 
-        /* Das Design für den Videoplayer selbst */
-        .video-kachel video {
-            width: 100%; /* Video füllt die Breite aus */
-            height: 220px; /* Feste Höhe für einheitlichen Look */
-            object-fit: cover; /* Schneidet das Video schön zu, ohne es zu verzerren */
+        .video-kachel {
             display: block;
-            background-color: #000;
+            margin-bottom: 30px;
+            background-color: #222;
+            border-radius: 16px;
+            overflow: hidden;
+            text-decoration: none;
+            color: white;
+            box-shadow: 0 8px 15px rgba(0,0,0,0.5);
         }
 
-        /* Das Design für den Text unter dem Video */
-        .text-bereich {
-            padding: 16px;
+        .video-kachel video {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            display: block;
+            background: #000;
         }
 
-        .titel {
-            margin: 0;
-            font-size: 18px;
-            font-weight: 600;
-        }
-
-        .untertitel {
-            margin: 6px 0 0 0;
-            font-size: 14px;
-            color: #aaaaaa;
-        }
+        .text-bereich { padding: 16px; }
+        .titel { margin: 0; font-size: 18px; font-weight: 600; }
+        .untertitel { margin: 6px 0 0 0; font-size: 14px; color: #aaaaaa; }
     </style>
 </head>
 <body>
 
-    <h2>Meine Liste</h2>
+    <div class="search-container">
+        <input type="text" id="suche" placeholder="Nach Titel oder Creator suchen...">
+    </div>
 
-	<a href="https://www.eporner.com/video-Jj53qx40Fbe/maaarynip-highlight-ahegao-deepthroat/" target="_blank" class="video-kachel">
-        
-        <video src="https://cdn.discordapp.com/attachments/1474458519200862382/1474458565002526770/1.mp4?ex=6999ec0c&is=69989a8c&hm=5b565ba935c4ce14431fcab96302164ab9dfd9893a031037441bc1fe2591fa16&" muted loop playsinline preload="none"></video>
-        
-        <div class="text-bereich">
-            <h3 class="titel">Maaarynip</h3>
+    <div id="video-liste">
         </div>
-    	
-	</a>
-
-    	<a href="https://www.eporner.com/video-Jj53qx40Fbe/maaarynip-highlight-ahegao-deepthroat/" target="_blank" class="video-kachel">
-        
-        <video src="1.mp4" muted loop playsinline preload="none"></video>
-        
-        <div class="text-bereich">
-            <h3 class="titel">Maaarynip</h3>
-        </div>
-    	
-	</a>
-
-	<a href="https://www.eporner.com/video-Jj53qx40Fbe/maaarynip-highlight-ahegao-deepthroat/" target="_blank" class="video-kachel">
-        
-        <video src="1.mp4" muted loop playsinline preload="none"></video>
-        
-        <div class="text-bereich">
-            <h3 class="titel">Maaarynip</h3>
-        </div>
-    	
-	</a>
-
-	<a href="https://www.eporner.com/video-Jj53qx40Fbe/maaarynip-highlight-ahegao-deepthroat/" target="_blank" class="video-kachel">
-        
-        <video src="1.mp4" muted loop playsinline preload="none"></video>
-        
-        <div class="text-bereich">
-            <h3 class="titel">Maaarynip</h3>
-        </div>
-    	
-	</a>
-
-	<a href="https://www.eporner.com/video-Jj53qx40Fbe/maaarynip-highlight-ahegao-deepthroat/" target="_blank" class="video-kachel">
-        
-        <video src="1.mp4" muted loop playsinline preload="none"></video>
-        
-        <div class="text-bereich">
-            <h3 class="titel">Maaarynip</h3>
-        </div>
-    	
-	</a>
-
-	<a href="https://www.eporner.com/video-Jj53qx40Fbe/maaarynip-highlight-ahegao-deepthroat/" target="_blank" class="video-kachel">
-        
-        <video src="1.mp4" muted loop playsinline preload="none"></video>
-        
-        <div class="text-bereich">
-            <h3 class="titel">Maaarynip</h3>
-        </div>
-    	
-	</a>
 
     <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            // Sucht alle Videos auf der Seite
-            const alleVideos = document.querySelectorAll('video');
+        let alleVideosDaten = [];
 
-            // Erstellt den Beobachter (Intersection Observer)
+        // Lädt die Daten aus der extra JSON-Datei
+        async function ladeDatenbank() {
+            try {
+                const antwort = await fetch('videos.json');
+                alleVideosDaten = await antwort.json();
+                renderVideos(alleVideosDaten);
+            } catch (fehler) {
+                console.error("Fehler beim Laden der JSON:", fehler);
+            }
+        }
+
+        function renderVideos(liste) {
+            const container = document.getElementById('video-liste');
+            container.innerHTML = liste.map(video => `
+                <a href="${video.link}" target="_blank" class="video-kachel">
+                    <video src="clips/${video.id}.mp4" muted loop playsinline preload="none"></video>
+                    <div class="text-bereich">
+                        <h3 class="titel">${video.titel}</h3>
+                        <p class="untertitel">${video.creator} (#${video.id})</p>
+                    </div>
+                </a>
+            `).join('');
+            starteBeobachter();
+        }
+
+        // Suche
+        document.getElementById('suche').addEventListener('input', (e) => {
+            const begriff = e.target.value.toLowerCase();
+            const gefiltert = alleVideosDaten.filter(v => 
+                v.titel.toLowerCase().includes(begriff) || 
+                v.creator.toLowerCase().includes(begriff)
+            );
+            renderVideos(gefiltert);
+        });
+
+        // Autoplay beim Scrollen
+        function starteBeobachter() {
             const beobachter = new IntersectionObserver((eintraege) => {
                 eintraege.forEach(eintrag => {
-                    // Wenn 50% des Videos auf dem Bildschirm sichtbar sind...
                     if (eintrag.isIntersecting) {
-                        eintrag.target.play().catch(fehler => console.log("Spielen blockiert", fehler));
+                        eintrag.target.play().catch(() => {});
                     } else {
-                        // Wenn das Video aus dem Bildschirm scrollt...
                         eintrag.target.pause();
+                        eintrag.target.currentTime = 0;
                     }
                 });
-            }, { 
-                threshold: 0.5 // Startet erst, wenn das Video zur Hälfte sichtbar ist
-            });
+            }, { threshold: 0.5 });
 
-            // Sagt dem Beobachter, dass er jedes Video überwachen soll
-            alleVideos.forEach(video => {
-                beobachter.observe(video);
-            });
-        });
+            document.querySelectorAll('video').forEach(v => beobachter.observe(v));
+        }
+
+        ladeDatenbank();
     </script>
-
 </body>
 </html>
